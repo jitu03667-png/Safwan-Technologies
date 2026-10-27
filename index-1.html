@@ -1,0 +1,890 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Daily Accessories</title>
+<style>
+:root{--bg:#050d1f;--card:#0c1a36;--line:#17305c;--blue:#2f7bff;--cyan:#27c5ff;--green:#1fd69a;--tx:#eaf1ff;--mu:#8aa0c8;--in:#0a1630;--g1:#0e2a5c}
+*{box-sizing:border-box;margin:0;-webkit-tap-highlight-color:transparent}
+html,body{height:100%}
+body{background:radial-gradient(120% 70% at 50% 0,var(--g1) 0,var(--bg) 60%);color:var(--tx);font-family:system-ui,"Noto Sans Bengali",sans-serif;overflow:hidden}
+#app{height:100%;max-width:480px;margin:auto;position:relative;padding:env(safe-area-inset-top) 0 env(safe-area-inset-bottom)}
+.s{position:absolute;inset:0;padding:env(safe-area-inset-top) 18px 84px;display:none;flex-direction:column;overflow-y:auto}
+.s.on{display:flex}
+h1{font-size:28px;text-align:center;margin-top:18px}h1 b{color:var(--cyan)}
+.top{display:flex;align-items:center;justify-content:space-between;padding:16px 0;font-weight:600}
+.top button,.ic{background:none;border:0;color:var(--tx);font-size:22px;width:36px;height:36px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:14px;display:flex;align-items:center;gap:12px;width:100%;color:var(--tx);text-align:left;font:inherit}
+.card small{color:var(--mu);display:block;font-size:12px}
+.dot{width:40px;height:40px;border-radius:50%;background:var(--blue);display:grid;place-items:center;font-size:18px;flex:none}
+.card.ok{border-color:var(--green);background:#08281f}.card.ok .dot{background:var(--green)}
+.sp{flex:1}
+.hero{margin:auto;text-align:center}
+.ph{width:110px;height:170px;margin:0 auto 20px;border:3px solid var(--cyan);border-radius:22px;display:grid;place-items:center;font-size:48px;box-shadow:0 0 30px #27c5ff55}
+.hero p,.mt{color:var(--mu);font-size:14px;line-height:1.6;margin-top:10px}
+.cta{background:linear-gradient(90deg,var(--blue),#7a4dff);border:0;color:#fff;font-size:17px;font-weight:600;border-radius:16px;padding:16px;width:100%;margin-top:18px}
+.mic{width:190px;height:190px;border-radius:50%;border:4px solid var(--cyan);background:radial-gradient(circle,#0f3a73,#071a3a);color:#fff;font-size:70px;box-shadow:0 0 50px #27c5ff44;margin:0 auto;display:grid;place-items:center;transition:.3s}
+.mic.live{border-color:var(--green);box-shadow:0 0 60px #1fd69a77;animation:pl 1.6s infinite}
+@keyframes pl{50%{transform:scale(1.04)}}
+@media(prefers-reduced-motion:reduce){.mic.live{animation:none}}
+.mid{margin:auto;text-align:center;width:100%}
+.mid h3{margin-top:22px}
+.bars{height:46px;display:flex;gap:4px;align-items:flex-end;justify-content:center;margin-top:16px;visibility:hidden}
+.bars.on{visibility:visible}.bars i{width:6px;height:4px;background:var(--green);border-radius:3px}
+.row{display:flex;gap:10px;justify-content:center;margin-top:14px}
+.sm{background:var(--card);border:1px solid var(--line);color:var(--tx);border-radius:12px;padding:10px 18px;font-size:14px}
+.sm.red{border-color:#ff5a6e;color:#ff8a98}
+nav{position:absolute;left:14px;right:14px;bottom:calc(10px + env(safe-area-inset-bottom));background:var(--card);border:1px solid var(--line);border-radius:18px;display:none;justify-content:space-around;padding:8px}
+nav.on{display:flex}
+nav button{background:none;border:0;color:var(--mu);font-size:12px;padding:6px 3px;border-radius:12px;flex:1;font-size:11px}
+nav button span{display:block;font-size:22px}nav button.a{color:var(--cyan)}
+.list{display:flex;flex-direction:column;gap:10px;margin-top:12px}
+.list .card.sel{border-color:var(--blue);background:#0d2a5a}
+.lb{color:var(--mu);font-size:13px;margin-top:18px}
+.err{color:#ff8a98;font-size:13px;margin-top:10px}
+.g{position:relative;width:200px;height:200px;margin:16px auto}
+.g svg{transform:rotate(135deg)}.g .n{position:absolute;inset:0;display:grid;place-items:center;font-size:40px;font-weight:700}
+.g circle{fill:none;stroke-width:14;stroke-linecap:round}
+input[type=range]{width:100%;accent-color:var(--blue);margin:8px 0}
+.pre{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:10px}
+.pre button{background:var(--in);border:1px solid var(--line);color:var(--tx);border-radius:12px;padding:12px 0;font-size:13px}.pre button.a{background:var(--blue)}
+.set{background:var(--card);border:1px solid var(--line);border-radius:16px;margin-top:12px}
+.set>div{display:flex;align-items:center;gap:12px;padding:14px;border-bottom:1px solid var(--line)}.set>div:last-child{border:0}
+.set select{background:var(--in);color:var(--tx);border:1px solid var(--line);border-radius:8px;padding:6px}
+.sw{appearance:none;width:46px;height:26px;border-radius:13px;background:#27406e;position:relative;flex:none}
+.sw:checked{background:var(--blue)}.sw:after{content:"";position:absolute;top:3px;left:3px;width:20px;height:20px;border-radius:50%;background:#fff;transition:.2s}.sw:checked:after{left:23px}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:10px}
+.pad{background:var(--card);border:1px solid var(--line);color:var(--tx);border-radius:14px;padding:14px 4px;font-size:13px;display:flex;flex-direction:column;align-items:center;gap:4px}.pad span{font-size:26px}.pad.on{background:var(--blue);border-color:var(--cyan)}
+.own{display:flex;align-items:center;gap:8px;padding:10px;background:var(--card);border:1px solid var(--line);border-radius:14px}
+.own input,.add input[type=text]{flex:1;min-width:0;background:var(--in);color:var(--tx);border:1px solid var(--line);border-radius:8px;padding:9px;font:inherit}
+.add{display:flex;flex-direction:column;gap:8px;margin-top:10px}.add input[type=file]{color:var(--mu);font-size:13px}
+nav{overflow-x:auto;scrollbar-width:none}nav::-webkit-scrollbar{display:none}nav.on{justify-content:flex-start}nav button{padding:6px 8px!important;font-size:10px!important;flex:1 0 auto!important}.hg .pad{-webkit-user-select:none;user-select:none;-webkit-touch-callout:none;touch-action:manipulation;padding:18px 4px}.hg .pad.on{background:var(--blue);border-color:var(--cyan);color:#fff}
+.tabs{display:flex;gap:8px;overflow-x:auto;padding-bottom:4px;margin-bottom:4px}.tabs button{flex:none;background:var(--card);border:1px solid var(--line);color:var(--mu);border-radius:12px;padding:9px 16px;font:inherit;font-size:14px}.tabs button.a{background:var(--blue);border-color:var(--blue);color:#fff}
+.add textarea,.add select{background:var(--in);color:var(--tx);border:1px solid var(--line);border-radius:8px;padding:9px;font:inherit}
+.sm.on{background:var(--blue);border-color:var(--cyan);color:#fff}.box{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:14px;margin-top:10px;text-align:center}.box .row button{font-size:22px}.np{display:none}.np.on{display:block}
+.num{width:30%;text-align:center;background:var(--in);color:var(--tx);border:1px solid var(--line);border-radius:10px;font:inherit;font-size:18px;padding:8px}.add input[type=time]{background:var(--in);color:var(--tx);border:1px solid var(--line);border-radius:8px;padding:9px;font:inherit}
+</style>
+</head>
+<body>
+<div id="app">
+
+<section class="s on" id="splash">
+  <div class="hero">
+    <div style="width:130px;height:130px;margin:0 auto 20px;filter:drop-shadow(0 0 26px #27c5ff66)"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="130" height="130">
+  <defs>
+    <linearGradient id="lg1" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#0b1f4a"/><stop offset="1" stop-color="#2f7bff"/></linearGradient>
+    <radialGradient id="lg2" cx="0.5" cy="0.38" r="0.6"><stop offset="0" stop-color="#27c5ff" stop-opacity="0.45"/><stop offset="1" stop-color="#27c5ff" stop-opacity="0"/></radialGradient>
+  </defs>
+  <rect width="512" height="512" rx="112" fill="url(#lg1)"/>
+  <rect width="512" height="512" rx="112" fill="url(#lg2)"/>
+  <g transform="translate(256 256) scale(1.0) translate(-256 -256)">
+  <rect x="216" y="104" width="80" height="150" rx="40" fill="#ffffff"/>
+  <path d="M174,222 A82,82 0 0 0 338,222" stroke="#27c5ff" stroke-width="16" stroke-linecap="round" fill="none"/>
+  <path d="M256,304 L256,350 M214,350 L298,350" stroke="#27c5ff" stroke-width="16" stroke-linecap="round" fill="none"/>
+  <path d="M349.0,141.4 A118,118 0 0 1 349.0,286.6" stroke="#ffffff" stroke-opacity="0.9" stroke-width="14" stroke-linecap="round" fill="none"/>
+  <path d="M163.0,286.6 A118,118 0 0 0 163.0,141.4" stroke="#ffffff" stroke-opacity="0.9" stroke-width="14" stroke-linecap="round" fill="none"/>
+  <path d="M382.1,115.5 A160,160 0 0 1 382.1,312.5" stroke="#ffffff" stroke-opacity="0.5" stroke-width="14" stroke-linecap="round" fill="none"/>
+  <path d="M129.9,312.5 A160,160 0 0 0 129.9,115.5" stroke="#ffffff" stroke-opacity="0.5" stroke-width="14" stroke-linecap="round" fill="none"/>
+  <circle cx="256" cy="418" r="7" fill="#27c5ff"/><circle cx="226" cy="418" r="5" fill="#ffffff" fill-opacity=".6"/><circle cx="286" cy="418" r="5" fill="#ffffff" fill-opacity=".6"/>
+  </g>
+</svg></div>
+    <h1>Daily <b>Accessories</b></h1>
+    <p>মাইক, সাউন্ড, হর্ন, নোট, ঘড়ি ও কম্পাস, দৈনন্দিন দরকারি সবকিছু এক অ্যাপে।</p>
+  </div>
+  <button class="cta" onclick="go('home')">শুরু করুন</button>
+</section>
+
+<section class="s" id="home">
+  <div class="top"><span class="ic"></span><span>Daily Accessories</span><button onclick="go('settings')">⚙</button></div>
+  <button class="card" id="btc" onclick="go('devices')">
+    <span class="dot">ᛒ</span><span class="sp"><b id="btt">সংযুক্ত নেই</b><small id="bts">একটি Bluetooth স্পিকার বেছে নিন</small></span><span>›</span>
+  </button>
+  <div class="mid">
+    <button class="mic" id="mic" onclick="toggle()">🎙️</button>
+    <h3 id="mt">চালু করতে ট্যাপ করুন</h3>
+    <p class="mt" id="ms">আপনার কণ্ঠ Bluetooth ডিভাইসে শোনা যাবে।</p>
+    <div class="bars" id="bars"></div>
+    <div class="row" id="lr" style="display:none">
+      <button class="sm" id="mute" onclick="doMute()">মিউট</button>
+      <button class="sm red" onclick="toggle()">বন্ধ করুন</button>
+    </div>
+    <div class="row" id="qs" style="flex-wrap:wrap"></div>
+    <label style="display:flex;gap:10px;align-items:center;margin-top:12px;color:var(--mu);font-size:13px">🎵 মিউজিক<input type="range" id="mvol2" min="0" max="100" value="40" oninput="setMv(this.value)" style="flex:1;margin:0"><span id="mvp" style="width:38px;text-align:right">40%</span></label>
+    <p class="err" id="err"></p>
+  </div>
+</section>
+
+<section class="s" id="devices">
+  <div class="top"><button onclick="go('home')">‹</button><span>ডিভাইস বেছে নিন</span><span class="ic"></span></div>
+  <button class="card" onclick="scan()"><span class="dot">⟳</span><span class="sp"><b>ডিভাইস খুঁজুন</b><small>আউটপুট ডিভাইসের তালিকা নতুন করে আনুন</small></span></button>
+  <div class="lb">উপলব্ধ ডিভাইস</div>
+  <div class="list" id="dl"></div>
+  <p class="mt">নতুন Bluetooth স্পিকার আগে ফোনের Bluetooth সেটিংস থেকে পেয়ার করুন, তারপর এখানে খুঁজুন।</p>
+  <p class="err" id="derr"></p>
+</section>
+
+<section class="s" id="volume">
+  <div class="top"><button onclick="go('home')">‹</button><span>ভলিউম</span><span class="ic"></span></div>
+  <div class="g">
+    <svg width="200" height="200" viewBox="0 0 140 140"><circle cx="70" cy="70" r="54" stroke="#17305c" stroke-dasharray="254 340"/><circle id="arc" cx="70" cy="70" r="54" stroke="#2f9bff" stroke-dasharray="0 340"/></svg>
+    <div class="n"><span id="vp">75%</span></div>
+  </div>
+  <div class="lb">আউটপুট ভলিউম</div>
+  <input type="range" id="vs" min="0" max="100" value="75" oninput="setVol(this.value)">
+  <div class="pre" id="pre">
+    <button onclick="setVol(0)">মিউট</button><button onclick="setVol(50)">50%</button><button onclick="setVol(75)">75%</button><button onclick="setVol(100)">100%</button>
+  </div>
+  <div class="lb">মাইক গেইন (বেশি করলে শব্দ ফেটে যেতে পারে)</div>
+  <input type="range" id="gs" min="50" max="300" value="100" oninput="setGain(this.value)">
+</section>
+
+<section class="s" id="settings">
+  <div class="top"><button onclick="go('home')">‹</button><span>সেটিংস</span><span class="ic"></span></div>
+  <div class="set">
+    <div><span class="sp">Bluetooth ডিভাইস<small style="display:block;color:var(--mu)" id="sbt">নেই</small></span><button class="ic" onclick="go('devices')">›</button></div>
+    <div><span class="sp">মাইক সেনসিটিভিটি</span><select id="sens" onchange="setGain({low:70,mid:100,high:180}[this.value]);gs.value=gain*100"><option value="low">কম</option><option value="mid" selected>মাঝারি</option><option value="high">বেশি</option></select></div>
+    <div><span class="sp">অডিও কোয়ালিটি</span><select id="aq" onchange="resetOut()"><option value="48000">উচ্চ</option><option value="16000">সাধারণ</option></select></div>
+    <div><span class="sp">নয়েজ রিডাকশন</span><input type="checkbox" class="sw" id="nr"></div>
+    <div><span class="sp">অটো রিকানেক্ট</span><input type="checkbox" class="sw" id="ar" checked></div>
+    <div><span class="sp">থিম<span id="sw" style="display:flex;gap:10px;margin-top:8px"></span></span></div>
+    <div><span class="sp">ব্যাকগ্রাউন্ড ছবি<input type="file" id="bf" accept="image/*" onchange="setBg()" style="display:block;color:var(--mu);font-size:12px;margin-top:6px"></span><button class="sm red" onclick="clrBg()">সরান</button></div>
+    <div><span class="sp">অ্যাপ সম্পর্কে<small style="display:block;color:var(--mu)">সংস্করণ 1.0.0</small></span></div>
+  </div>
+  <p class="mt">নয়েজ রিডাকশন ও কোয়ালিটি বদলালে মাইক আবার চালু করুন।</p>
+</section>
+
+<section class="s" id="sounds">
+  <div class="top"><button onclick="go('home')">‹</button><span>সাউন্ড</span><button onclick="stopAll()" style="font-size:14px;width:auto;color:#ff8a98">সব বন্ধ</button></div>
+  <div class="tabs" id="tb"></div>
+  <div class="grid" id="pg"></div>
+  <div id="ow">
+    <label style="color:var(--mu);font-size:14px;display:flex;gap:8px;align-items:center;margin:12px 0"><input type="checkbox" id="lp"> লুপে চালান</label>
+    <div class="list" id="ol"></div>
+    <p class="mt" id="oe">এই ট্যাবে এখনো কিছু নেই।</p>
+  </div>
+  <div id="mus" style="display:none">
+    <div class="box"><b id="mnow">কোনো গান চলছে না</b>
+      <div class="row"><button class="sm" onclick="mNext(-1)">⏮</button><button class="sm" id="mpp" onclick="mToggle()">▶</button><button class="sm" onclick="mNext(1)">⏭</button><button class="sm on" onclick="mLoop(this)">🔁</button></div>
+      <label style="color:var(--mu);font-size:13px;display:block;margin-top:10px">মিউজিক ভলিউম<input type="range" id="mvol" min="0" max="100" value="40" oninput="setMv(this.value)"></label>
+      <p class="mt">গান চলার সময় মাইকে কথা বললে দুটোই একসাথে স্পিকারে যাবে।</p>
+    </div>
+    <div class="list" id="mlst" style="margin-top:12px"></div>
+    <p class="mt" id="mem">প্লেলিস্টে এখনো কোনো গান নেই।</p>
+    <div class="add"><input type="file" id="mf" accept="audio/*" multiple><button class="cta" style="margin-top:0" onclick="addMusic()">গান যোগ করুন</button></div>
+  </div>
+  <div class="add" id="sadd" style="margin-top:20px"><b>নতুন সাউন্ড যোগ করুন</b>
+    <input type="text" id="nn" placeholder="সাউন্ডের নাম">
+    <input type="text" id="nt" list="tl" placeholder="ট্যাবের নাম (নতুন নাম দিলে নতুন ট্যাব হবে)">
+    <datalist id="tl"></datalist>
+    <input type="file" id="nf" accept="audio/*">
+    <button class="cta" style="margin-top:0" onclick="addOwn()">সাউন্ড যোগ করুন</button>
+  </div>
+  <p class="err" id="serr"></p>
+</section>
+
+<section class="s" id="voice">
+  <div class="top"><button onclick="go('home')">‹</button><span>ভয়েস</span><button onclick="stopAll()" style="font-size:14px;width:auto;color:#ff8a98">সব বন্ধ</button></div>
+  <p class="mt" style="margin:0 0 6px">নিজের কণ্ঠ রেকর্ড করে নাম দিন, পরে এক ট্যাপে স্পিকারে বাজান। রেকর্ডের সময় মাইক বন্ধ রাখুন।</p>
+  <div class="add"><input type="text" id="vn" placeholder="ভয়েসের নাম"><button class="cta" id="rb" style="margin-top:0" onclick="recTo('rb','vn','__voice','verr')">⏺ রেকর্ড শুরু করুন</button></div>
+  <div class="lb">আমার ভয়েস</div>
+  <div class="list" id="vl"></div>
+  <p class="mt" id="ve">এখনো কোনো ভয়েস নেই।</p>
+  <div class="add" style="margin-top:20px"><input type="file" id="vf" accept="audio/*"><button class="cta" style="margin-top:0" onclick="addFile('vf','vn','__voice','verr')">ফাইল থেকে ভয়েস যোগ করুন</button></div>
+  <p class="err" id="verr"></p>
+</section>
+
+<section class="s" id="notes">
+  <div class="top"><button onclick="go('home')">‹</button><span>নোট</span><span class="ic"></span></div>
+  <div class="tabs" id="ntabs">
+    <button id="nt1" class="a" onclick="nTab(1)">📝 লেখা</button><button id="nt2" onclick="nTab(2)">🎨 আঁকা</button><button id="nt3" onclick="nTab(3)">✅ টুডু</button><button id="nt4" onclick="nTab(4)">🎙️ ভয়েস</button>
+  </div>
+  <div id="n1" class="np on">
+    <div id="nlw"><button class="cta" style="margin-top:8px" onclick="noteEdit()">＋ নতুন নোট</button><div class="list" id="nl" style="margin-top:12px"></div></div>
+    <div class="add" id="ne" style="display:none;margin-top:8px"><input type="text" id="nti" placeholder="শিরোনাম"><textarea id="ntx" rows="10" placeholder="এখানে বাংলা বা English-এ লিখুন..."></textarea>
+      <div class="row"><button class="sm" onclick="noteClose()">বাতিল</button><button class="sm on" onclick="noteSave()">সংরক্ষণ</button></div></div>
+  </div>
+  <div id="n2" class="np">
+    <canvas id="cv" style="width:100%;height:320px;background:#fff;border-radius:14px;touch-action:none;margin-top:8px"></canvas>
+    <div class="row" id="pal" style="align-items:center"></div>
+    <input type="range" id="pw" min="2" max="30" value="4">
+    <div class="row"><button class="sm" onclick="cvClear()">সব মুছুন</button><button class="sm on" onclick="cvSave()">সংরক্ষণ</button></div>
+    <div class="lb">সংরক্ষিত আঁকা (ট্যাপ করলে খুলবে)</div>
+    <div class="grid" id="dl2" style="grid-template-columns:1fr 1fr"></div>
+  </div>
+  <div id="n3" class="np">
+    <div class="add" style="margin-top:8px"><input type="text" id="ti" placeholder="নতুন কাজ লিখুন"><button class="cta" style="margin-top:0" onclick="todoAdd()">যোগ করুন</button></div>
+    <div class="list" id="tl2" style="margin-top:12px"></div>
+    <div class="row"><button class="sm red" onclick="todoClear()">সম্পন্ন কাজ মুছুন</button></div>
+  </div>
+  <div id="n4" class="np">
+    <div class="add" style="margin-top:8px"><input type="text" id="nvn" placeholder="রেকর্ডের নাম"><button class="cta" id="nrb" style="margin-top:0" onclick="recTo('nrb','nvn','__nvoice','nerr')">⏺ রেকর্ড শুরু করুন</button></div>
+    <div class="list" id="nvl" style="margin-top:12px"></div>
+    <p class="mt" id="nve">এখনো কোনো ভয়েস নোট নেই।</p>
+  </div>
+  <p class="err" id="nerr"></p>
+</section>
+
+<section class="s" id="clock">
+  <div class="top"><button onclick="go('home')">‹</button><span>ঘড়ি ও কম্পাস</span><span class="ic"></span></div>
+  <div class="tabs">
+    <button id="ct1" class="a" onclick="cTab(1)">🕐 ঘড়ি</button><button id="ct2" onclick="cTab(2)">⏱ স্টপওয়াচ</button><button id="ct3" onclick="cTab(3)">⏳ টাইমার</button><button id="ct4" onclick="cTab(4)">⏰ অ্যালার্ম</button><button id="ct5" onclick="cTab(5)">🧭 কম্পাস</button>
+  </div>
+  <div id="c1" class="np on"><div class="box" style="margin-top:20px;padding:34px 10px"><div id="ctime" style="font-size:46px;font-weight:700"></div><div id="cper" style="color:var(--cyan);margin-top:6px;font-size:18px"></div><div id="cdate" class="mt"></div></div></div>
+  <div id="c2" class="np"><div class="box" style="margin-top:16px"><div id="swd" style="font-size:46px;font-weight:700;padding:14px 0">০০:০০.০০</div>
+    <div class="row"><button class="sm on" id="sws" onclick="swToggle()">▶ শুরু</button><button class="sm" onclick="swLap()">🏁 ল্যাপ</button><button class="sm red" onclick="swReset()">রিসেট</button></div></div>
+    <div class="list" id="swl" style="margin-top:10px"></div></div>
+  <div id="c3" class="np"><div class="box" style="margin-top:16px"><div id="tmd" style="font-size:46px;font-weight:700;padding:10px 0">০০:০৫:০০</div>
+    <div class="row" id="tmin"><input class="num" type="number" id="tmh" min="0" placeholder="ঘণ্টা" value="0"><input class="num" type="number" id="tmm" min="0" placeholder="মিনিট" value="5"><input class="num" type="number" id="tms" min="0" placeholder="সেকেন্ড" value="0"></div>
+    <div class="row" id="tmp"><button class="sm" onclick="tmSet(60)">১ মি</button><button class="sm" onclick="tmSet(300)">৫ মি</button><button class="sm" onclick="tmSet(600)">১০ মি</button><button class="sm" onclick="tmSet(1800)">৩০ মি</button></div>
+    <div class="row"><button class="sm on" id="tmb" onclick="tmToggle()">▶ চালু করুন</button><button class="sm red" onclick="tmReset()">রিসেট</button></div></div></div>
+  <div id="c5" class="np"><div class="box" style="margin-top:16px">
+    <svg viewBox="0 0 200 200" width="250" height="250" style="max-width:100%"><circle cx="100" cy="100" r="92" fill="var(--in)" stroke="var(--line)" stroke-width="3"/>
+      <g id="cmpd"><g stroke="var(--mu)" stroke-width="2"><line x1="100" y1="10" x2="100" y2="22"/><line x1="190" y1="100" x2="178" y2="100"/><line x1="100" y1="190" x2="100" y2="178"/><line x1="10" y1="100" x2="22" y2="100"/>
+        <line x1="145" y1="22" x2="140" y2="31"/><line x1="178" y1="55" x2="169" y2="60"/><line x1="178" y1="145" x2="169" y2="140"/><line x1="145" y1="178" x2="140" y2="169"/><line x1="55" y1="178" x2="60" y2="169"/><line x1="22" y1="145" x2="31" y2="140"/><line x1="22" y1="55" x2="31" y2="60"/><line x1="55" y1="22" x2="60" y2="31"/></g>
+        <g font-size="18" font-weight="700" text-anchor="middle" fill="var(--tx)"><text x="100" y="46" fill="#ff4d63">উ</text><text x="162" y="107">পূ</text><text x="100" y="170">দ</text><text x="38" y="107">প</text></g></g>
+      <polygon points="100,2 93,18 107,18" fill="#ff4d63"/><circle cx="100" cy="100" r="5" fill="var(--cyan)"/></svg>
+    <div id="cmpdeg" style="font-size:40px;font-weight:700">০°</div><div id="cmpdir" style="color:var(--cyan);font-size:18px">–</div><div id="cmpsrc" class="mt" style="margin:4px 0 0"></div>
+    <div class="row"><button class="sm on" id="cmpb" onclick="cmpToggle()">▶ কম্পাস চালু করুন</button></div>
+    <p class="mt">ফোন সমতলে ধরুন। শব্দ ঠিক না এলে ফোনকে ৮-এর মতো করে ঘোরান (ক্যালিব্রেশন), আর চুম্বক বা ধাতব জিনিস থেকে দূরে থাকুন।</p><p class="err" id="cmperr"></p>
+  </div></div>
+  <div id="c4" class="np">
+    <div class="add" style="margin-top:8px"><input type="text" id="aln" placeholder="অ্যালার্মের নাম (ঐচ্ছিক)"><input type="time" id="alt"><select id="alr"><option value="once">একবার</option><option value="daily">প্রতিদিন</option></select><button class="cta" style="margin-top:0" onclick="alarmAdd()">অ্যালার্ম যোগ করুন</button></div>
+    <div class="list" id="alist2" style="margin-top:12px"></div><p class="mt" id="ale">এখনো কোনো অ্যালার্ম নেই।</p>
+    <p class="mt">অ্যালার্ম শুধু অ্যাপ খোলা থাকলে বাজবে।</p><p class="err" id="alerr"></p>
+  </div>
+</section>
+
+<div id="ringb" style="display:none;position:absolute;left:14px;right:14px;top:calc(12px + env(safe-area-inset-top));z-index:50;background:#ff4d63;color:#fff;border-radius:16px;padding:14px;align-items:center;gap:12px"><b id="rmsg" style="flex:1"></b><button class="sm" onclick="ringStop()">বন্ধ করুন</button></div>
+
+<section class="s" id="horns">
+  <div class="top"><button onclick="go('home')">‹</button><span>হর্ন</span><button onclick="stopAll()" style="font-size:14px;width:auto;color:#ff8a98">সব বন্ধ</button></div>
+  <p class="mt" style="margin:0 0 4px">বাটন চেপে ধরলে হর্ন বাজবে, ছেড়ে দিলেই থেমে যাবে।</p>
+  <div class="grid hg" id="hg"></div>
+  <div class="lb">আমার হর্ন (চেপে ধরলে বাজবে)</div>
+  <div class="grid hg" id="hg2"></div>
+  <p class="mt" id="hge">এখনো নিজের কোনো হর্ন যোগ করা হয়নি।</p>
+  <div class="add" style="margin-top:16px"><b>নতুন হর্ন যোগ করুন</b>
+    <input type="text" id="hn" placeholder="হর্নের নাম (যেমন: বাসের হর্ন)">
+    <input type="file" id="hf" accept="audio/*">
+    <button class="cta" style="margin-top:0" onclick="addFile('hf','hn','__horn','herr')">হর্ন যোগ করুন</button>
+  </div>
+  <div id="hmg" style="display:none"><div class="lb">নাম বদলান / মুছুন</div><div class="list" id="hl"></div></div>
+  <p class="err" id="herr"></p>
+</section>
+
+<nav id="nav">
+  <button data-t="home" onclick="go('home')"><span>🎙️</span>মাইক</button>
+  <button data-t="volume" onclick="go('volume')"><span>🔊</span>ভলিউম</button>
+  <button data-t="sounds" onclick="go('sounds')"><span>🚨</span>সাউন্ড</button>
+  <button data-t="horns" onclick="go('horns')"><span>📯</span>হর্ন</button>
+  <button data-t="voice" onclick="go('voice')"><span>🗣️</span>ভয়েস</button>
+  <button data-t="notes" onclick="go('notes')"><span>📝</span>নোট</button>
+  <button data-t="clock" onclick="go('clock')"><span>⏰</span>ঘড়ি</button>
+  <button data-t="settings" onclick="go('settings')"><span>⚙</span>সেটিংস</button>
+</nav>
+</div>
+
+<script>
+var $=function(i){return document.getElementById(i)};
+var ctx,stream,audio,gainNode,analyser,raf,master,dest,micSrc,muted=false,playing={},tab='p',live=false,vol=.75,gain=1,sink='',sinkName='';
+var bars=$('bars');for(var i=0;i<14;i++)bars.appendChild(document.createElement('i'));
+
+function go(n){
+  document.querySelectorAll('.s').forEach(function(s){s.classList.toggle('on',s.id===n)});
+  $('nav').classList.toggle('on',['home','volume','sounds','horns','voice','notes','clock','settings'].indexOf(n)>-1);
+  document.querySelectorAll('nav button').forEach(function(b){b.classList.toggle('a',b.dataset.t===n)});
+  if(n==='devices')scan();
+  if(n==='home')status();
+  if(n==='sounds'||n==='voice'||n==='notes'||n==='clock'||n==='horns')loadOwn();
+}
+function status(){
+  var nb='';try{if(window.AndroidMic)nb=AndroidMic.btName()}catch(e){}
+  var ok=!!sink||!!nb,nm=sinkName||nb;
+  $('btc').classList.toggle('ok',ok);
+  $('btt').textContent=ok?'সংযুক্ত':'সংযুক্ত নেই';
+  $('bts').textContent=ok?nm:'একটি Bluetooth স্পিকার বেছে নিন';
+  $('sbt').textContent=ok?nm:'নেই';
+}
+function nativeScan(){
+  var dl=$('dl');dl.innerHTML='';$('derr').textContent='';
+  var a=[];try{a=JSON.parse(AndroidMic.devices())}catch(e){}
+  if(!a.length)$('derr').textContent='কোনো আউটপুট ডিভাইস পাওয়া যায়নি।';
+  a.forEach(function(d){
+    var b=document.createElement('button');b.className='card'+(d.sel?' sel':'');
+    b.innerHTML='<span class="dot">'+(d.bt?'ᛒ':'🔈')+'</span><span class="sp"><b></b><small></small></span>';
+    b.querySelector('b').textContent=d.name;
+    b.querySelector('small').textContent=d.sel?'ব্যবহার হচ্ছে':(d.bt?'Bluetooth, ট্যাপ করে বেছে নিন':'ট্যাপ করে বেছে নিন');
+    b.onclick=function(){AndroidMic.select(d.id);sink='n'+d.id;sinkName=d.name;status();nativeScan()};
+    dl.appendChild(b);
+  });
+}
+async function scan(){
+  if(window.AndroidMic){nativeScan();return}
+  $('derr').textContent='';var dl=$('dl');dl.innerHTML='';
+  try{
+    var t=await navigator.mediaDevices.getUserMedia({audio:true});t.getTracks().forEach(function(x){x.stop()});
+    var ds=(await navigator.mediaDevices.enumerateDevices()).filter(function(d){return d.kind==='audiooutput'});
+    if(!ds.length)$('derr').textContent='কোনো আউটপুট ডিভাইস পাওয়া যায়নি। Bluetooth সংযুক্ত আছে কিনা দেখুন।';
+    ds.forEach(function(d){
+      var b=document.createElement('button');b.className='card'+(d.deviceId===sink?' sel':'');
+      var name=d.label||'অডিও ডিভাইস';
+      b.innerHTML='<span class="dot">🔈</span><span class="sp"><b></b><small>'+(d.deviceId===sink?'ব্যবহার হচ্ছে':'ট্যাপ করে বেছে নিন')+'</small></span>';
+      b.querySelector('b').textContent=name;
+      b.onclick=function(){pick(d.deviceId,name)};dl.appendChild(b);
+    });
+  }catch(e){$('derr').textContent='মাইক অনুমতি দিন, তারপর আবার খুঁজুন। ('+e.message+')'}
+}
+async function pick(id,name){
+  sink=id;sinkName=name;
+  try{if(audio&&audio.setSinkId)await audio.setSinkId(id)}catch(e){$('derr').textContent='এই ডিভাইসে আউটপুট বদলানো যায়নি: '+e.message}
+  status();scan();
+}
+async function toggle(){live?stop():start()}
+async function out(){
+  if(ctx)return;
+  if(window.AndroidAudio)AndroidAudio.fix();
+  ctx=new AudioContext({latencyHint:'interactive',sampleRate:+$('aq').value});
+  master=ctx.createGain();dest=ctx.createMediaStreamDestination();master.connect(dest);
+  audio=new Audio();audio.srcObject=dest.stream;audio.volume=vol;
+  if(sink&&audio.setSinkId){try{await audio.setSinkId(sink)}catch(e){}}
+  await audio.play();
+}
+function resetOut(){if(live||!ctx||Object.keys(playing).length||(mel&&!mel.paused))return;ctx.close();ctx=null;mel=null;audio.pause()}
+function nlev(){
+  if(!live||!window.AndroidMic)return;
+  var l=0;try{l=AndroidMic.level()}catch(e){}
+  var b=bars.children;
+  for(var i=0;i<b.length;i++){var v=l*(.5+.5*Math.abs(Math.sin(Date.now()/120+i)));b[i].style.height=Math.max(4,v*46)+'px'}
+  raf=requestAnimationFrame(nlev);
+}
+async function start(){
+  $('err').textContent='';
+  if(window.AndroidMic){
+    var ok=false;try{ok=AndroidMic.start()}catch(e){}
+    if(!ok){$('err').textContent='মাইক চালু হয়নি। ফোনের Settings > Apps > Daily Accessories > Permissions থেকে মাইকের অনুমতি দিন।';return}
+    AndroidMic.setGain(muted?0:gain);AndroidMic.setVolume(vol);
+    live=true;ui();status();
+    var bt='';try{bt=AndroidMic.btName()}catch(e){}
+    if(!bt&&!sink)$('err').textContent='Bluetooth স্পিকার পাওয়া যায়নি, শব্দ ফোনের স্পিকারে যেতে পারে। আগে ফোনের Bluetooth-এ স্পিকার সংযুক্ত করুন।';
+    nlev();return;
+  }
+  try{
+    stream=await navigator.mediaDevices.getUserMedia({audio:{echoCancellation:false,noiseSuppression:$('nr').checked,autoGainControl:false}});
+    if(window.AndroidAudio)AndroidAudio.start();
+    await out();await ctx.resume();
+    micSrc=ctx.createMediaStreamSource(stream);
+    gainNode=ctx.createGain();gainNode.gain.value=muted?0:gain;
+    analyser=ctx.createAnalyser();analyser.fftSize=64;
+    micSrc.connect(gainNode);gainNode.connect(analyser);gainNode.connect(master);
+    live=true;ui();draw();
+  }catch(e){$('err').textContent='মাইক চালু হয়নি: '+e.message;stop()}
+}
+function stop(){
+  live=false;cancelAnimationFrame(raf);
+  if(window.AndroidMic){try{AndroidMic.stop()}catch(e){}}if(window.AndroidAudio)AndroidAudio.stop();
+  if(stream)stream.getTracks().forEach(function(t){t.stop()});
+  if(micSrc){micSrc.disconnect();gainNode.disconnect()}
+  stream=micSrc=null;muted=false;ui();
+}
+function doMute(){
+  if(window.AndroidMic&&live){muted=!muted;AndroidMic.setGain(muted?0:gain);$('mute').textContent=muted?'আনমিউট':'মিউট';return}
+  if(!gainNode)return;muted=!muted;gainNode.gain.value=muted?0:gain;
+  $('mute').textContent=muted?'আনমিউট':'মিউট';
+}
+function ui(){
+  $('mic').classList.toggle('live',live);
+  $('mt').textContent=live?'মাইক চালু আছে':'চালু করতে ট্যাপ করুন';
+  $('mt').style.color=live?'var(--green)':'';
+  $('ms').textContent=live?'কথা বলুন, শব্দ আপনার ডিভাইসে যাচ্ছে।':'আপনার কণ্ঠ Bluetooth ডিভাইসে শোনা যাবে।';
+  bars.classList.toggle('on',live);$('lr').style.display=live?'flex':'none';
+  $('mute').textContent='মিউট';
+}
+function draw(){
+  var d=new Uint8Array(analyser.frequencyBinCount);analyser.getByteFrequencyData(d);
+  var b=bars.children;
+  for(var i=0;i<b.length;i++)b[i].style.height=Math.max(4,d[i]/255*46)+'px';
+  raf=requestAnimationFrame(draw);
+}
+function setVol(v){
+  v=+v;vol=v/100;$('vs').value=v;$('vp').textContent=v+'%';
+  $('arc').setAttribute('stroke-dasharray',(254*vol)+' 340');
+  if(audio)audio.volume=vol;
+  if(window.AndroidMic){try{AndroidMic.setVolume(vol)}catch(e){}}
+  document.querySelectorAll('#pre button').forEach(function(b,i){b.classList.toggle('a',[0,50,75,100][i]===v)});
+}
+function setGain(v){gain=+v/100;if(window.AndroidMic&&live){try{AndroidMic.setGain(muted?0:gain)}catch(e){}}$('gs').value=v;if(gainNode)gainNode.gain.value=muted?0:gain}
+/* ---- সাউন্ড ---- */
+var P=[
+ {n:'সাইরেন',e:'🚨',t:'sawtooth',f:800,fm:[.4,300,'sine']},
+ {n:'পুলিশ',e:'🚓',t:'square',f:900,fm:[1.5,250,'square']},
+ {n:'অ্যাম্বুলেন্স',e:'🚑',t:'sine',f:750,fm:[1,200,'square']},
+ {n:'হর্ন',e:'📯',t:'sawtooth',f:350,f2:440},
+ {n:'অ্যালার্ম',e:'⏰',t:'square',f:1000,am:4},
+ {n:'বিপ',e:'📟',t:'sine',f:1000,am:1.5},
+ {n:'বেল',e:'🔔',bell:1},
+ {n:'হুইসেল',e:'😗',t:'sine',f:2400,fm:[7,120,'sine']}
+];
+function stopAll(){Object.keys(playing).forEach(function(k){playing[k]()})}
+async function preset(i,btn){
+  var k='p'+i;if(playing[k]){playing[k]();return}
+  var p=P[i];await out();await ctx.resume();
+  var nodes=[],g=ctx.createGain();g.gain.value=.5;g.connect(master);
+  function osc(t,f){var o=ctx.createOscillator();o.type=t;o.frequency.value=f;o.start();nodes.push(o);return o}
+  if(p.bell){
+    [880,1760,2640].forEach(function(f,j){var o=osc('sine',f),h=ctx.createGain(),t=ctx.currentTime;
+      h.gain.setValueAtTime(.6/(j+1),t);h.gain.exponentialRampToValueAtTime(.001,t+3);o.connect(h);h.connect(g)});
+  }else{
+    var o=osc(p.t,p.f),o2=p.f2?osc(p.t,p.f2):null,tgt=g;
+    if(p.am){var ag=ctx.createGain(),l=osc('square',p.am),ld=ctx.createGain();ag.gain.value=.5;ld.gain.value=.5;l.connect(ld);ld.connect(ag.gain);ag.connect(g);tgt=ag}
+    if(p.fm){var fl=osc(p.fm[2],p.fm[0]),fd=ctx.createGain();fd.gain.value=p.fm[1];fl.connect(fd);fd.connect(o.frequency)}
+    o.connect(tgt);if(o2)o2.connect(tgt);
+  }
+  function st(){nodes.forEach(function(o){try{o.stop()}catch(e){}});g.disconnect();delete playing[k];btn.classList.remove('on')}
+  playing[k]=st;btn.classList.add('on');if(p.bell)setTimeout(st,3200);
+}
+P.forEach(function(p,i){var b=document.createElement('button');b.className='pad';b.innerHTML='<span>'+p.e+'</span>'+p.n;b.onclick=function(){preset(i,b)};$('pg').appendChild(b)});
+
+function idb(){return new Promise(function(res,rej){var r=indexedDB.open('bmic',1);
+  r.onupgradeneeded=function(){r.result.createObjectStore('s',{keyPath:'id',autoIncrement:true})};
+  r.onsuccess=function(){res(r.result)};r.onerror=function(){rej(r.error)}})}
+function req(mode,fn){return idb().then(function(d){return new Promise(function(res,rej){
+  var q=fn(d.transaction('s',mode).objectStore('s'));q.onsuccess=function(){res(q.result)};q.onerror=function(){rej(q.error)}})})}
+function dbAll(){return req('readonly',function(s){return s.getAll()})}
+function dbPut(r){return req('readwrite',function(s){return s.put(r)})}
+function dbDel(id){return req('readwrite',function(s){return s.delete(id)})}
+
+async function loadOwn(){
+  var all;$('serr').textContent='';
+  try{all=await dbAll()}catch(e){$('serr').textContent='সাউন্ড সংরক্ষণ চালু নেই: '+e.message;return}
+  var names=[];all.forEach(function(r){var t=r.tab||'আমার সাউন্ড';if(t.indexOf('__')!==0&&names.indexOf(t)<0)names.push(t)});
+  if(tab!=='p'&&tab!=='m'&&names.indexOf(tab)<0)tab='p';
+  var tb=$('tb');tb.innerHTML='';
+  ['p','m'].concat(names).forEach(function(t){var b=document.createElement('button');b.textContent=t==='p'?'প্রিলোড':t==='m'?'🎵 প্লেলিস্ট':t;b.className=t===tab?'a':'';b.onclick=function(){tab=t;loadOwn()};tb.appendChild(b)});
+  var tl=$('tl');tl.innerHTML='';names.forEach(function(n){var o=document.createElement('option');o.value=n;tl.appendChild(o)});
+  $('pg').style.display=tab==='p'?'grid':'none';$('ow').style.display=(tab==='p'||tab==='m')?'none':'block';$('mus').style.display=tab==='m'?'block':'none';$('sadd').style.display=tab==='m'?'none':'flex';
+  list($('ol'),all.filter(function(r){return (r.tab||'আমার সাউন্ড')===tab}),$('oe'));
+  renderNotes(all);
+  list($('vl'),all.filter(function(r){return r.tab==='__voice'}),$('ve'));
+}
+function list(l,rows,empty){
+  l.innerHTML='';empty.style.display=rows.length?'none':'block';
+  rows.forEach(function(r){
+    var d=document.createElement('div');d.className='own';
+    var inp=document.createElement('input');inp.type='text';inp.value=r.name;
+    inp.onchange=function(){r.name=inp.value.trim()||r.name;dbPut(r)};
+    var pb=document.createElement('button');pb.className='sm';pb.textContent=playing['o'+r.id]?'■':'▶';pb.onclick=function(){playOwn(r,pb)};
+    var del=document.createElement('button');del.className='sm red';del.textContent='✕';
+    del.onclick=async function(){if(playing['o'+r.id])playing['o'+r.id]();await dbDel(r.id);loadOwn()};
+    d.appendChild(inp);d.appendChild(pb);d.appendChild(del);l.appendChild(d);
+  });
+}
+async function playOwn(r,btn){
+  var k='o'+r.id;if(playing[k]){playing[k]();return}
+  $('serr').textContent='';
+  try{
+    await out();await ctx.resume();
+    var buf=await ctx.decodeAudioData(await r.blob.arrayBuffer());
+    var s=ctx.createBufferSource();s.buffer=buf;s.loop=$('lp').checked;
+    var g=ctx.createGain();g.gain.value=.9;s.connect(g);g.connect(master);s.start();
+    btn.textContent='■';
+    var st=function(){try{s.stop()}catch(e){}g.disconnect();delete playing[k];btn.textContent='▶'};
+    s.onended=st;playing[k]=st;
+  }catch(e){$('serr').textContent='এই ফাইল চালানো যায়নি: '+e.message}
+}
+async function addFile(fe,ne,tn,er){
+  var f=$(fe).files[0],n=$(ne).value.trim();$(er).textContent='';
+  if(!f){$(er).textContent='আগে একটি অডিও ফাইল বাছাই করুন।';return}
+  if(!n)n=f.name.replace(/\.[^.]+$/,'');
+  try{await dbPut({name:n,blob:f,tab:tn});$(ne).value='';$(fe).value='';loadOwn()}
+  catch(e){$(er).textContent='সংরক্ষণ হয়নি: '+e.message}
+}
+function addOwn(){var t=$('nt').value.trim()||'আমার সাউন্ড';tab=t;$('nt').value='';addFile('nf','nn',t,'serr')}
+var mr,chunks=[];
+async function recTo(bi,ni,tb,ei){
+  var b=$(bi),lab=b.textContent;$(ei).textContent='';
+  if(mr&&mr.state==='recording'){mr.stop();return}
+  try{
+    var st=await navigator.mediaDevices.getUserMedia({audio:true});
+    var m=mr=new MediaRecorder(st);chunks=[];
+    m.ondataavailable=function(e){chunks.push(e.data)};
+    m.onstop=async function(){
+      st.getTracks().forEach(function(t){t.stop()});b.textContent=lab;b.style.background='';
+      var n=$(ni).value.trim()||('রেকর্ড '+new Date().toLocaleTimeString());
+      try{await dbPut({name:n,blob:new Blob(chunks,{type:m.mimeType}),tab:tb});$(ni).value='';loadOwn()}
+      catch(e){$(ei).textContent='সংরক্ষণ হয়নি: '+e.message}
+    };
+    m.start();b.textContent='⏹ রেকর্ড বন্ধ করুন';b.style.background='#ff4d63';
+  }catch(e){$(ei).textContent='রেকর্ড শুরু হয়নি: '+e.message}
+}
+function mk(tag,cls,txt){var e=document.createElement(tag);if(cls)e.className=cls;if(txt!==undefined)e.textContent=txt;return e}
+function recs(a,t){return a.filter(function(r){return r.tab===t})}
+function delBtn(r,after){var x=mk('button','sm red','✕');x.onclick=async function(){if(after)after();await dbDel(r.id);loadOwn()};return x}
+function nameInp(r){var i=mk('input');i.type='text';i.value=r.name;i.onchange=function(){r.name=i.value.trim()||r.name;dbPut(r)};return i}
+
+/* ---- প্লেলিস্ট (ব্যাকগ্রাউন্ড মিউজিক) ---- */
+var mel,mgain,mlist=[],mid=null,mloop=true,mcur=null;
+async function mInit(){
+  await out();await ctx.resume();
+  if(!mel){mel=new Audio();var src=ctx.createMediaElementSource(mel);mgain=ctx.createGain();mgain.gain.value=$('mvol').value/100;
+    src.connect(mgain);mgain.connect(master);mel.onended=function(){mNext(1)};mel.onplay=mel.onpause=mUI}
+}
+async function mPlay(id){
+  try{
+    var r=mlist.filter(function(x){return x.id===id})[0];if(!r)return;
+    await mInit();mid=id;if(mcur)URL.revokeObjectURL(mcur);mcur=URL.createObjectURL(r.blob);
+    mel.src=mcur;await mel.play();$('mnow').textContent='▶ '+r.name;mUI();
+  }catch(e){$('serr').textContent='গান চালানো যায়নি: '+e.message}
+}
+function mToggle(){
+  if(!mlist.length){tab='m';go('sounds');return}
+  if(!mel||mid===null){mPlay(mlist[0].id);return}
+  mel.paused?mel.play():mel.pause();
+}
+function mNext(d){
+  if(!mlist.length)return;
+  var i=mlist.findIndex(function(r){return r.id===mid}),n=i+d;
+  if(n>=mlist.length&&!mloop&&d===1){mel.pause();return}
+  mPlay(mlist[(n+mlist.length)%mlist.length].id);
+}
+function setMv(v){v=+v;if(mgain)mgain.gain.value=v/100;$('mvol').value=v;$('mvol2').value=v;$('mvp').textContent=v+'%'}
+function mLoop(b){mloop=!mloop;b.classList.toggle('on',mloop)}
+function mUI(){
+  var pl=!!(mel&&!mel.paused);
+  $('mpp').textContent=pl?'⏸':'▶';$('qm').textContent=pl?'⏸ মিউজিক':'🎵 মিউজিক';$('qm').classList.toggle('on',pl);
+  musicRender();
+}
+function musicRender(){
+  var l=$('mlst');l.innerHTML='';$('mem').style.display=mlist.length?'none':'block';
+  mlist.forEach(function(r){
+    var d=mk('div','own');if(r.id===mid)d.style.borderColor='var(--green)';
+    var pb=mk('button','sm',(r.id===mid&&mel&&!mel.paused)?'⏸':'▶');
+    pb.onclick=function(){r.id===mid&&mel?mToggle():mPlay(r.id)};
+    d.appendChild(nameInp(r));d.appendChild(pb);
+    d.appendChild(delBtn(r,function(){if(mid===r.id&&mel){mel.pause();mid=null;$('mnow').textContent='কোনো গান চলছে না'}}));
+    l.appendChild(d);
+  });
+}
+async function addMusic(){
+  var fs=$('mf').files;$('serr').textContent='';
+  if(!fs.length){$('serr').textContent='আগে এক বা একাধিক গান বাছাই করুন।';return}
+  try{for(var i=0;i<fs.length;i++)await dbPut({name:fs[i].name.replace(/\.[^.]+$/,''),blob:fs[i],tab:'__music'});$('mf').value='';loadOwn()}
+  catch(e){$('serr').textContent='সংরক্ষণ হয়নি: '+e.message}
+}
+
+/* ---- নোট ---- */
+var nid=null,did=null,cv,cx,dr=false,col='#000000',eraser=false,nAud=null;
+function nTab(k){
+  [1,2,3,4].forEach(function(i){$('n'+i).classList.toggle('on',i===k);$('nt'+i).classList.toggle('a',i===k)});
+  if(k===2)cvInit();if(nAud){nAud.pause();nAud=null}
+}
+function noteEdit(r){nid=r?r.id:null;$('nti').value=r?r.name:'';$('ntx').value=r?r.text:'';$('ne').style.display='flex';$('nlw').style.display='none'}
+function noteClose(){$('ne').style.display='none';$('nlw').style.display='block'}
+async function noteSave(){
+  var n=$('nti').value.trim(),t=$('ntx').value;
+  if(!n&&!t.trim()){noteClose();return}
+  var o={name:n||t.trim().slice(0,20),text:t,tab:'__note'};if(nid)o.id=nid;
+  await dbPut(o);noteClose();loadOwn();
+}
+async function todoAdd(){var v=$('ti').value.trim();if(!v)return;await dbPut({name:v,done:false,tab:'__todo'});$('ti').value='';loadOwn()}
+async function todoClear(){var a=await dbAll();for(var i=0;i<a.length;i++)if(a[i].tab==='__todo'&&a[i].done)await dbDel(a[i].id);loadOwn()}
+function cvInit(){
+  if(cv)return;cv=$('cv');cv.width=cv.clientWidth;cv.height=320;cx=cv.getContext('2d');cvClear();
+  cv.addEventListener('pointerdown',function(e){dr=true;cv.setPointerCapture(e.pointerId);var p=pt(e);cx.beginPath();cx.moveTo(p[0],p[1]);cx.lineTo(p[0]+.1,p[1]);stroke(p)});
+  cv.addEventListener('pointermove',function(e){if(dr){var p=pt(e);cx.lineTo(p[0],p[1]);stroke(p)}});
+  cv.addEventListener('pointerup',function(){dr=false});cv.addEventListener('pointercancel',function(){dr=false});
+}
+function pt(e){var r=cv.getBoundingClientRect();return[(e.clientX-r.left)*cv.width/r.width,(e.clientY-r.top)*cv.height/r.height]}
+function stroke(p){cx.strokeStyle=eraser?'#ffffff':col;cx.lineWidth=eraser?$('pw').value*2:+$('pw').value;cx.lineCap=cx.lineJoin='round';cx.stroke();cx.beginPath();cx.moveTo(p[0],p[1])}
+function cvClear(){if(!cx)return;cx.fillStyle='#fff';cx.fillRect(0,0,cv.width,cv.height);did=null}
+function cvSave(){
+  cvInit();cv.toBlob(async function(b){var o={name:'আঁকা',blob:b,tab:'__draw'};if(did)o.id=did;await dbPut(o);cvClear();loadOwn()},'image/png');
+}
+function cvLoad(r){cvInit();var im=new Image();im.onload=function(){cvClear();cx.drawImage(im,0,0,cv.width,cv.height);did=r.id};im.src=URL.createObjectURL(r.blob)}
+(function(){
+  var p=$('pal');['#000000','#e53935','#1e88e5','#43a047','#fb8c00','#8e24aa'].forEach(function(c){
+    var b=mk('button');b.style.cssText='width:32px;height:32px;border-radius:50%;border:2px solid var(--line);background:'+c;
+    b.onclick=function(){col=c;eraser=false;e.classList.remove('on')};p.appendChild(b)});
+  var e=mk('button','sm','🧽');e.onclick=function(){eraser=!eraser;e.classList.toggle('on',eraser)};p.appendChild(e);
+})();
+function nPlay(r,b){
+  var was=b.dataset.on;
+  document.querySelectorAll('#nvl .pl').forEach(function(x){x.textContent='▶';delete x.dataset.on});
+  if(nAud){nAud.pause();nAud=null}if(was)return;
+  var a=new Audio(URL.createObjectURL(r.blob));nAud=a;b.textContent='■';b.dataset.on=1;
+  a.onended=function(){b.textContent='▶';delete b.dataset.on};a.play().catch(function(e){$('nerr').textContent=e.message});
+}
+function renderNotes(all){
+  mlist=recs(all,'__music');musicRender();alarms=recs(all,'__alarm');renderAlarms();renderHorns(all);
+  var l=$('nl');l.innerHTML='';
+  recs(all,'__note').reverse().forEach(function(r){
+    var d=mk('div','own'),b=mk('button','card'),w=mk('span','sp');
+    b.style.cssText='flex:1;min-width:0;padding:10px';w.appendChild(mk('b','',r.name));w.appendChild(mk('small','',(r.text||'').slice(0,60)));
+    b.appendChild(w);b.onclick=function(){noteEdit(r)};d.appendChild(b);d.appendChild(delBtn(r));l.appendChild(d);
+  });
+  var tl=$('tl2');tl.innerHTML='';
+  recs(all,'__todo').forEach(function(r){
+    var d=mk('div','own'),c=mk('input');c.type='checkbox';c.checked=!!r.done;c.style.cssText='width:22px;height:22px;accent-color:var(--blue)';
+    c.onchange=async function(){r.done=c.checked;await dbPut(r);loadOwn()};
+    var t=mk('span','sp',r.name);t.style.cssText='font-size:15px;'+(r.done?'text-decoration:line-through;color:var(--mu)':'');
+    d.appendChild(c);d.appendChild(t);d.appendChild(delBtn(r));tl.appendChild(d);
+  });
+  var g=$('dl2');g.innerHTML='';
+  recs(all,'__draw').forEach(function(r){
+    var w=mk('div');w.style.position='relative';var im=mk('img');im.src=URL.createObjectURL(r.blob);
+    im.style.cssText='width:100%;border-radius:10px;background:#fff;display:block';im.onclick=function(){cvLoad(r)};
+    var x=delBtn(r);x.style.cssText='position:absolute;top:4px;right:4px;padding:2px 8px';w.appendChild(im);w.appendChild(x);g.appendChild(w);
+  });
+  var v=$('nvl');v.innerHTML='';var vr=recs(all,'__nvoice');$('nve').style.display=vr.length?'none':'block';
+  vr.forEach(function(r){
+    var d=mk('div','own'),p=mk('button','sm pl','▶');p.onclick=function(){nPlay(r,p)};
+    d.appendChild(nameInp(r));d.appendChild(p);d.appendChild(delBtn(r));v.appendChild(d);
+  });
+}
+
+/* ---- ঘড়ি ---- */
+var ck=1,alarms=[],fired={},rt,swT=0,swS=0,swR=false,swI,laps=[],tmEnd=0,tmLeft=0,tmRun=false,tmI;
+function bd(x){return String(x).replace(/[0-9]/g,function(d){return '০১২৩৪৫৬৭৮৯'[d]})}
+function p2(n){return (n<10?'0':'')+n}
+function cTab(k){ck=k;[1,2,3,4,5].forEach(function(i){$('c'+i).classList.toggle('on',i===k);$('ct'+i).classList.toggle('a',i===k)});if(k===1)drawClock(new Date());if(k!==5)cmpStop()}
+function drawClock(d){
+  var h=d.getHours(),h12=h%12||12;
+  $('ctime').textContent=bd(p2(h12)+':'+p2(d.getMinutes())+':'+p2(d.getSeconds()));
+  $('cper').textContent=h<5?'ভোর':h<12?'সকাল':h<15?'দুপুর':h<18?'বিকাল':h<20?'সন্ধ্যা':'রাত';
+  var t;try{t=d.toLocaleDateString('bn-BD',{weekday:'long',day:'numeric',month:'long',year:'numeric'})}catch(e){t=d.toDateString()}
+  $('cdate').textContent=t;
+}
+function t12(t){var a=t.split(':'),h=+a[0];return bd(p2(h%12||12)+':'+a[1])+(h<12?' AM':' PM')}
+/* স্টপওয়াচ */
+function swNow(){return swR?swT+performance.now()-swS:swT}
+function swFmt(ms){return bd(p2(Math.floor(ms/60000))+':'+p2(Math.floor(ms/1000)%60)+'.'+p2(Math.floor(ms/10)%100))}
+function swUp(){$('swd').textContent=swFmt(swNow())}
+function swToggle(){
+  if(swR){swT=swNow();swR=false;clearInterval(swI);$('sws').textContent='▶ শুরু'}
+  else{swS=performance.now();swR=true;swI=setInterval(swUp,50);$('sws').textContent='⏸ থামান'}
+}
+function swLap(){
+  if(!swR&&!swT)return;laps.unshift(swNow());var l=$('swl');l.innerHTML='';
+  laps.forEach(function(v,i){var d=mk('div','own');d.appendChild(mk('span','sp','ল্যাপ '+bd(laps.length-i)));d.appendChild(mk('b','',swFmt(v)));l.appendChild(d)});
+}
+function swReset(){swR=false;swT=0;laps=[];clearInterval(swI);$('sws').textContent='▶ শুরু';$('swl').innerHTML='';swUp()}
+/* টাইমার */
+function tmFmt(ms){var s=Math.ceil(ms/1000);return bd(p2(Math.floor(s/3600))+':'+p2(Math.floor(s/60)%60)+':'+p2(s%60))}
+function tmSet(sec){if(tmRun||tmLeft)return;$('tmh').value=Math.floor(sec/3600);$('tmm').value=Math.floor(sec/60)%60;$('tms').value=sec%60;tmShow()}
+function tmShow(){$('tmd').textContent=tmFmt(((+$('tmh').value||0)*3600+(+$('tmm').value||0)*60+(+$('tms').value||0))*1000)}
+['tmh','tmm','tms'].forEach(function(i){$(i).oninput=tmShow});
+function tmToggle(){
+  if(tmRun){tmLeft=Math.max(0,tmEnd-Date.now());tmRun=false;clearInterval(tmI);$('tmb').textContent='▶ চালু করুন';return}
+  if(tmLeft<=0)tmLeft=((+$('tmh').value||0)*3600+(+$('tmm').value||0)*60+(+$('tms').value||0))*1000;
+  if(tmLeft<=0)return;
+  tmEnd=Date.now()+tmLeft;tmRun=true;tmI=setInterval(tmTick,200);$('tmb').textContent='⏸ বিরতি';
+  $('tmin').style.display=$('tmp').style.display='none';tmTick();
+}
+function tmTick(){
+  var left=tmEnd-Date.now();
+  if(left<=0){tmReset();ring('⏳ টাইমার শেষ!');return}
+  $('tmd').textContent=tmFmt(left);
+}
+function tmReset(){tmRun=false;tmLeft=0;clearInterval(tmI);$('tmb').textContent='▶ চালু করুন';$('tmin').style.display=$('tmp').style.display='flex';tmShow()}
+/* অ্যালার্ম */
+async function alarmAdd(){
+  var t=$('alt').value;$('alerr').textContent='';
+  if(!t){$('alerr').textContent='আগে সময় বাছাই করুন।';return}
+  try{await dbPut({name:$('aln').value.trim(),time:t,rep:$('alr').value,on:true,tab:'__alarm'});$('aln').value='';loadOwn()}
+  catch(e){$('alerr').textContent='সংরক্ষণ হয়নি: '+e.message}
+}
+function renderAlarms(){
+  var l=$('alist2');l.innerHTML='';$('ale').style.display=alarms.length?'none':'block';
+  alarms.slice().sort(function(a,b){return a.time<b.time?-1:1}).forEach(function(a){
+    var d=mk('div','own'),w=mk('span','sp'),t=mk('b','',t12(a.time));t.style.fontSize='20px';
+    w.appendChild(t);w.appendChild(mk('small','',(a.name?a.name+' · ':'')+(a.rep==='daily'?'প্রতিদিন':'একবার')));w.lastChild.style.cssText='display:block;color:var(--mu);font-size:12px';
+    var c=mk('input','sw');c.type='checkbox';c.checked=!!a.on;c.onchange=function(){a.on=c.checked;dbPut(a)};
+    d.appendChild(w);d.appendChild(c);d.appendChild(delBtn(a));l.appendChild(d);
+  });
+}
+function ring(msg){
+  $('rmsg').textContent=msg;$('ringb').style.display='flex';
+  if(!playing['p4'])preset(4,document.createElement('button'));
+  try{navigator.vibrate&&navigator.vibrate([500,300,500,300,500])}catch(e){}
+  clearTimeout(rt);rt=setTimeout(ringStop,60000);
+}
+function ringStop(){
+  $('ringb').style.display='none';clearTimeout(rt);if(playing['p4'])playing['p4']();
+  try{navigator.vibrate&&navigator.vibrate(0)}catch(e){}
+}
+function tick(){
+  var d=new Date();if(ck===1&&$('clock').classList.contains('on'))drawClock(d);
+  var hm=p2(d.getHours())+':'+p2(d.getMinutes()),key=d.toDateString()+hm;
+  alarms.forEach(function(a){
+    if(a.on&&a.time===hm&&fired[a.id]!==key){fired[a.id]=key;ring('⏰ '+(a.name||t12(a.time)));if(a.rep==='once'){a.on=false;dbPut(a);renderAlarms()}}
+  });
+}
+setInterval(tick,1000);drawClock(new Date());
+
+/* ---- কম্পাস ---- */
+var cmpOn=false,cmpH=0,cmpT,cmpGot=false,cmpPoll,cmpFB,cmpSen;
+function cmpDir(h){return['উত্তর','উত্তর-পূর্ব','পূর্ব','দক্ষিণ-পূর্ব','দক্ষিণ','দক্ষিণ-পশ্চিম','পশ্চিম','উত্তর-পশ্চিম'][Math.floor(((h+22.5)%360)/45)]}
+function cmpSrc(t){$('cmpsrc').textContent='সেন্সর: '+t}
+function cmpApply(h){
+  cmpGot=true;$('cmperr').textContent='';
+  var d=((h-cmpH+540)%360)-180;cmpH=(cmpH+d*.25+360)%360;
+  $('cmpd').setAttribute('transform','rotate('+(-cmpH).toFixed(1)+' 100 100)');
+  $('cmpdeg').textContent=bd(Math.round(cmpH)%360)+'°';$('cmpdir').textContent=cmpDir(cmpH);
+}
+function cmpQ(q){
+  var x=q[0],y=q[1],z=q[2],w=q[3],tx=2*(x*y-w*z),ty=1-2*(x*x+z*z),tz=2*(y*z+w*x),h;
+  h=Math.abs(tz)<.7?Math.atan2(tx,ty):Math.atan2(-2*(x*z+w*y),-2*(y*z-w*x));
+  h=h*180/Math.PI;return h<0?h+360:h;
+}
+function cmpEv(e){
+  var h,r=Math.PI/180;
+  if(e.webkitCompassHeading!=null)h=e.webkitCompassHeading;
+  else if(e.alpha==null)return;
+  else{
+    if(e.type==='deviceorientation'&&e.absolute!==true)return;
+    var a=e.alpha*r,b=(e.beta||0)*r,g=(e.gamma||0)*r;
+    var rA=-Math.cos(a)*Math.sin(g)-Math.sin(a)*Math.sin(b)*Math.cos(g),rB=-Math.sin(a)*Math.sin(g)+Math.cos(a)*Math.sin(b)*Math.cos(g);
+    h=Math.atan2(rA,rB)/r;if(h<0)h+=360;
+  }
+  cmpSrc(e.type==='deviceorientationabsolute'?'deviceorientationabsolute':'deviceorientation');cmpApply(h);
+}
+function cmpEvents(){
+  window.addEventListener('deviceorientationabsolute',cmpEv,true);
+  cmpFB=setTimeout(function(){if(!cmpGot)window.addEventListener('deviceorientation',cmpEv,true)},1200);
+}
+async function cmpToggle(){
+  if(cmpOn){cmpStop();return}
+  $('cmperr').textContent='';$('cmpsrc').textContent='';cmpGot=false;
+  if(window.AndroidCompass){
+    try{AndroidCompass.start()}catch(e){$('cmperr').textContent='সেন্সর চালু হয়নি: '+e.message;return}
+    cmpSrc('ফোনের নিজস্ব সেন্সর (অ্যাপ)');
+    cmpPoll=setInterval(function(){var h=AndroidCompass.heading();if(h>=0)cmpApply(h)},80);
+  }else{
+    if(!window.isSecureContext){$('cmperr').textContent='এই পেজ নিরাপদ (HTTPS বা localhost) নয়, তাই ব্রাউজার সেন্সরের তথ্য দেয় না। অ্যাপ (APK) বা Netlify লিংক থেকে খুলুন।';return}
+    try{
+      if(typeof DeviceOrientationEvent!=='undefined'&&DeviceOrientationEvent.requestPermission){
+        var r=await DeviceOrientationEvent.requestPermission();if(r!=='granted'){$('cmperr').textContent='সেন্সরের অনুমতি দেওয়া হয়নি।';return}
+      }
+    }catch(e){$('cmperr').textContent='অনুমতি নেওয়া যায়নি: '+e.message;return}
+    if(window.AbsoluteOrientationSensor){
+      try{
+        cmpSen=new AbsoluteOrientationSensor({frequency:30,referenceFrame:'screen'});
+        cmpSen.onreading=function(){cmpSrc('AbsoluteOrientationSensor');cmpApply(cmpQ(cmpSen.quaternion))};
+        cmpSen.onerror=function(){try{cmpSen.stop()}catch(e){}cmpSen=null;cmpEvents()};
+        cmpSen.start();
+      }catch(e){cmpSen=null;cmpEvents()}
+    }else cmpEvents();
+  }
+  cmpOn=true;$('cmpb').textContent='⏹ বন্ধ করুন';
+  cmpT=setTimeout(function(){if(!cmpGot)$('cmperr').textContent='কম্পাসের তথ্য আসছে না। ফোনের Settings থেকে লোকেশন/মোশন সেন্সর চালু আছে কিনা দেখুন। APK ব্যবহার করলে সেটাই সবচেয়ে নির্ভরযোগ্য।'},4000);
+}
+function cmpStop(){
+  if(!cmpOn)return;
+  window.removeEventListener('deviceorientationabsolute',cmpEv,true);window.removeEventListener('deviceorientation',cmpEv,true);
+  clearInterval(cmpPoll);clearTimeout(cmpFB);clearTimeout(cmpT);
+  if(cmpSen){try{cmpSen.stop()}catch(e){}cmpSen=null}
+  if(window.AndroidCompass){try{AndroidCompass.stop()}catch(e){}}
+  cmpOn=false;$('cmpb').textContent='▶ কম্পাস চালু করুন';
+}
+
+/* ---- হর্ন (চেপে ধরলে বাজে) ---- */
+var H=[
+ {n:'গাড়ি',e:'🚗',o:[['square',440],['square',554]],g:.26},
+ {n:'জিপ / SUV',e:'🚙',o:[['sawtooth',330],['sawtooth',415]],g:.3},
+ {n:'ট্রাক',e:'🚚',o:[['sawtooth',190],['sawtooth',240],['square',380]],lp:1800,g:.3},
+ {n:'বাস',e:'🚌',o:[['sawtooth',270],['sawtooth',340]],lp:2200,g:.32},
+ {n:'ট্রেন',e:'🚆',o:[['sawtooth',311],['sawtooth',370],['sawtooth',440],['sawtooth',523]],lp:1600,g:.22},
+ {n:'জাহাজ',e:'🚢',o:[['sawtooth',98],['sawtooth',123],['square',196]],lp:700,g:.38},
+ {n:'মোটরসাইকেল',e:'🏍️',o:[['square',620],['square',780]],g:.22},
+ {n:'অটো / সিএনজি',e:'🛺',o:[['square',520],['sawtooth',523]],am:9,g:.3},
+ {n:'রিকশা / সাইকেল বেল',e:'🛎️',o:[['sine',2600],['sine',3300]],am:16,g:.3},
+ {n:'ট্রাক্টর',e:'🚜',o:[['sawtooth',150],['sawtooth',155]],am:22,lp:1200,g:.35},
+ {n:'ফায়ার ট্রাক',e:'🚒',o:[['sawtooth',420],['sawtooth',520]],am:3,g:.3},
+ {n:'স্কুটার',e:'🛵',o:[['triangle',720],['triangle',900]],g:.4},
+ {n:'ভ্যান',e:'🚐',o:[['square',360],['square',450]],lp:2500,g:.26},
+ {n:'ক্লাসিক আ-ওগা',e:'📯',o:[['sawtooth',300]],ramp:[1.5,.6],lp:2500,g:.3}
+],held={};
+async function hornStart(i,btn){
+  var k='h'+i;if(playing[k])return;held[i]=1;
+  await out();await ctx.resume();if(!held[i]||playing[k])return;
+  var h=H[i],t=ctx.currentTime,nodes=[],g=ctx.createGain(),tail=g;
+  g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(h.g,t+.03);g.connect(master);
+  if(h.lp){var f=ctx.createBiquadFilter();f.type='lowpass';f.frequency.value=h.lp;f.connect(g);tail=f}
+  if(h.am){var ag=ctx.createGain(),l=ctx.createOscillator(),ld=ctx.createGain();ag.gain.value=.5;l.type='square';l.frequency.value=h.am;ld.gain.value=.5;
+    l.connect(ld);ld.connect(ag.gain);l.start();nodes.push(l);ag.connect(tail);tail=ag}
+  h.o.forEach(function(x){var o=ctx.createOscillator();o.type=x[0];o.frequency.setValueAtTime(x[1],t);
+    if(h.ramp)o.frequency.linearRampToValueAtTime(x[1]*h.ramp[0],t+h.ramp[1]);o.connect(tail);o.start();nodes.push(o)});
+  playing[k]=function(){
+    var n=ctx.currentTime;g.gain.cancelScheduledValues(n);g.gain.setValueAtTime(g.gain.value,n);g.gain.linearRampToValueAtTime(0,n+.05);
+    setTimeout(function(){nodes.forEach(function(o){try{o.stop()}catch(e){}});g.disconnect()},90);
+    delete playing[k];btn.classList.remove('on');
+  };
+  btn.classList.add('on');
+}
+function hornStop(i){held[i]=0;if(playing['h'+i])playing['h'+i]()}
+H.forEach(function(h,i){
+  var b=document.createElement('button');b.className='pad';b.innerHTML='<span>'+h.e+'</span>'+h.n;
+  b.onpointerdown=function(ev){ev.preventDefault();hornStart(i,b)};
+  ['pointerup','pointercancel','pointerleave'].forEach(function(t){b['on'+t]=function(){hornStop(i)}});
+  b.oncontextmenu=function(e){e.preventDefault()};$('hg').appendChild(b);
+});
+/* নিজের হর্ন */
+var hb={};
+async function chStart(r,btn){
+  var k='H'+r.id;if(playing[k])return;held[k]=1;
+  try{
+    await out();await ctx.resume();
+    var buf=hb[r.id];if(!buf){buf=await ctx.decodeAudioData(await r.blob.arrayBuffer());hb[r.id]=buf}
+    if(!held[k]||playing[k])return;
+    var s=ctx.createBufferSource(),g=ctx.createGain(),t=ctx.currentTime;s.buffer=buf;s.loop=true;
+    g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(.9,t+.03);s.connect(g);g.connect(master);s.start();
+    playing[k]=function(){
+      var n=ctx.currentTime;g.gain.cancelScheduledValues(n);g.gain.setValueAtTime(g.gain.value,n);g.gain.linearRampToValueAtTime(0,n+.05);
+      setTimeout(function(){try{s.stop()}catch(e){}g.disconnect()},90);delete playing[k];btn.classList.remove('on');
+    };
+    btn.classList.add('on');
+  }catch(e){$('herr').textContent='এই হর্ন চালানো যায়নি: '+e.message}
+}
+function chStop(r){var k='H'+r.id;held[k]=0;if(playing[k])playing[k]()}
+function hornStopAll(){H.forEach(function(h,i){hornStop(i)});Object.keys(playing).forEach(function(k){if(k[0]==='H'){held[k]=0;playing[k]()}})}
+function renderHorns(all){
+  var g=$('hg2'),l=$('hl'),rows=recs(all,'__horn');g.innerHTML='';l.innerHTML='';
+  $('hge').style.display=rows.length?'none':'block';$('hmg').style.display=rows.length?'block':'none';
+  rows.forEach(function(r){
+    var b=mk('button','pad');b.appendChild(mk('span','','🔊'));b.appendChild(document.createTextNode(r.name));
+    b.onpointerdown=function(ev){ev.preventDefault();chStart(r,b)};
+    ['pointerup','pointercancel','pointerleave'].forEach(function(t){b['on'+t]=function(){chStop(r)}});
+    b.oncontextmenu=function(e){e.preventDefault()};g.appendChild(b);
+    var d=mk('div','own');d.appendChild(nameInp(r));d.appendChild(delBtn(r,function(){chStop(r);delete hb[r.id]}));l.appendChild(d);
+  });
+}
+document.addEventListener('visibilitychange',function(){if(document.hidden)hornStopAll()});
+window.addEventListener('blur',hornStopAll);
+
+/* ---- থিম ও ব্যাকগ্রাউন্ড ---- */
+var TH={
+ blue:{bg:'#050d1f',card:'#0c1a36',line:'#17305c',blue:'#2f7bff',cyan:'#27c5ff',in:'#0a1630',g1:'#0e2a5c',tx:'#eaf1ff',mu:'#8aa0c8'},
+ purple:{bg:'#0e0720',card:'#1a1036',line:'#34235f',blue:'#8b5cf6',cyan:'#c084fc',in:'#140b2b',g1:'#2a1458',tx:'#f1eaff',mu:'#a99bcb'},
+ green:{bg:'#04140f',card:'#0a251c',line:'#14463a',blue:'#10b981',cyan:'#34d399',in:'#071d16',g1:'#0b3a2c',tx:'#e8fff6',mu:'#86b5a4'},
+ black:{bg:'#000000',card:'#121212',line:'#2a2a2a',blue:'#3d7bff',cyan:'#27c5ff',in:'#0a0a0a',g1:'#0b0b0b',tx:'#f2f2f2',mu:'#9a9a9a'},
+ light:{bg:'#eef3ff',card:'#ffffff',line:'#cfd9f0',blue:'#2f7bff',cyan:'#0a84ff',in:'#f2f6ff',g1:'#dfe9ff',tx:'#10203f',mu:'#5a6b8c'}
+};
+function setTheme(k){
+  var t=TH[k]||TH.blue;for(var p in t)document.documentElement.style.setProperty('--'+p,t[p]);
+  try{localStorage.setItem('th',k)}catch(e){}
+  document.querySelectorAll('#sw button').forEach(function(b){b.style.outline=b.dataset.k===k?'3px solid var(--tx)':'none'});
+}
+Object.keys(TH).forEach(function(k){var b=mk('button');b.dataset.k=k;b.style.cssText='width:34px;height:34px;border-radius:50%;border:2px solid '+TH[k].line+';background:linear-gradient(135deg,'+TH[k].bg+' 50%,'+TH[k].blue+' 50%)';b.onclick=function(){setTheme(k)};$('sw').appendChild(b)});
+function applyBg(b){document.body.style.background='url('+URL.createObjectURL(b)+') center/cover fixed'}
+async function setBg(){var f=$('bf').files[0];if(!f)return;try{await dbPut({id:'bg',tab:'__bg',blob:f});applyBg(f)}catch(e){}}
+async function clrBg(){try{await dbDel('bg')}catch(e){}document.body.style.background='';$('bf').value=''}
+setVol(75);status();
+var qs=$('qs');
+[0,3,6,4].forEach(function(i){var b=mk('button','sm',P[i].e+' '+P[i].n);b.onclick=function(){preset(i,b)};qs.appendChild(b)});
+var qm=mk('button','sm','🎵 মিউজিক');qm.id='qm';qm.onclick=mToggle;qs.appendChild(qm);
+(function(){var k='blue';try{k=localStorage.getItem('th')||k}catch(e){}setTheme(k);
+ dbAll().then(function(a){var b=recs(a,'__bg')[0];if(b)applyBg(b.blob)}).catch(function(){});loadOwn()})();
+
+</script>
+</body>
+</html>
